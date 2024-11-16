@@ -3,5 +3,11 @@ version: 1.0-pre
 main: lubro\ServerManager\Main
 api: 5.0.0
 src-namespace-prefix: lubro\ServerManager
-commands: []
-permissions: []
+commands:
+  servermanager:
+    description: Open the Server Manager
+    permission: servermanager.open
+permissions:
+  servermanager.open:
+    description: Allows access to the Server Manager
+    default: op
