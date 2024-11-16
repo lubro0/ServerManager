@@ -6,7 +6,7 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
-use jojoe77777\FormAPI\SimpleForm;
+use jojoe77777\FormAPI\Form;
 
 class Main extends PluginBase {
 
@@ -27,15 +27,27 @@ class Main extends PluginBase {
     }
 
     private function sendServerManagerForm(Player $player): void {
-        $form = new SimpleForm(function (Player $player, ?int $data) {
-            // Handle form response here if needed
-        });
+        $form = new class() extends Form {
+            public function __construct(callable $callback) {
+                $this->callback = $callback;
+            }
 
-        $os = PHP_OS;
+            public function handleResponse(Player $player, $data): void {
+                ($this->callback)($player, $data);
+            }
 
-        $form->setTitle("Server Manager");
-        $form->setContent("Operating System: " . $os);
-        $form->addButton("Close");
+            public function jsonSerialize(): array {
+                $os = PHP_OS;
+                return [
+                    "type" => "form",
+                    "title" => "Server Manager",
+                    "content" => "Operating System: " . $os,
+                    "buttons" => [
+                        ["text" => "Close"]
+                    ]
+                ];
+            }
+        };
 
         $player->sendForm($form);
     }
