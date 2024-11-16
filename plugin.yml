@@ -1,0 +1,7 @@
+name: ServerManager
+version: 1.0-pre
+main: lubro\ServerManager\Main
+api: 5.0.0
+src-namespace-prefix: lubro\ServerManager
+commands: []
+permissions: []
