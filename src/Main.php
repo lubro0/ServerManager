@@ -28,6 +28,7 @@ class Main extends PluginBase {
 
     private function sendServerManagerForm(Player $player): void {
         $form = new SimpleForm(function (Player $player, $data) {
+            // Handle form response
         });
         $form->setTitle("Server Manager");
         $form->setContent("Operating System: " . PHP_OS);
